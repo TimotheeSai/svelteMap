@@ -1,0 +1,33 @@
+Group,Marker Icon,Marker Color,Icon Color,Custom Size,Name,Image,Description,Location,Latitude,Longitude
+Culture,local_see,red,white,,Les hommes du Canal,,Description,,48.3159,-1.8070
+Culture,local_see,red,white,,Port de la Madeleine,,Description,,48.3093,-1.7954
+Culture,local_see,red,white,,Château de Dinan,,Description,,48.4702,-2.0514
+Culture,local_see,red,white,,"Le Fort du Guesclin",,Description,,48.6988,-1.8960
+Culture,local_see,red,white,,Les Thermes Marins de Saint-Malo,,Description,,48.6648,-2.0011
+Culture,local_see,red,white,,Pointe du Grouin,,Description,,48.7170,-1.8489
+Plage,beach_access,yellow,white,,"Plage de Bon-Secours",,Description,,48.6547,-2.0338
+Plage,beach_access,yellow,white,,Plage du Verger,,Description,,48.7022,-1.8769
+Plage,beach_access,yellow,white,,"Plage du Rougeret",,Description,,48.6262,-2.1932
+Plage,beach_access,yellow,white,,Plage de Quatre Vaux,,Description,,48.6135,-2.2152
+WC,wc,blue,white,,WC,,WC description 2,,48.4770,-2.0071
+WC,wc,blue,white,,WC,,WC description 3,,48.4587,-2.0370
+WC,wc,blue,white,,WC,,WC description 4,,48.3845,-1.9793
+WC,wc,blue,white,,WC,,WC description 5,,48.3776,-1.8361
+WC,wc,blue,white,,WC,,WC description 6,,48.3125,-1.7188
+WC,wc,blue,white,,WC,,WC description 7,,48.2720,-1.6637
+WC,wc,blue,white,,WC,,WC description 8,,48.2558,-1.6670
+WC,wc,blue,white,,WC,,WC description 9,,48.2483,-1.6668
+WC,wc,blue,white,,WC,,WC description 10,,48.2105,-1.6359
+WC,wc,blue,white,,WC,,WC description 11,,48.2115,-1.6312
+Resto,restaurant,green,white,,Annadata,,,,48.6545,-2.0261
+Resto,restaurant,green,white,,"Le Relais des Onze Ecluses
+",,,,48.3018,-1.8189
+Resto,restaurant,green,white,,Le Saint Louis,,,,48.4514,-2.0432
+Resto,restaurant,green,white,,"Le Balafon",,,,48.6338,-2.0577
+Hotel,hotel,black,white,,Abeille des onze ecluses (Miels et chambres d'hôtes),,,,48.3052,-1.7856
+Hotel,hotel,black,white,,"Ille Flottante chambre d'hôtes
+",,,,48.3078,-1.7939
+Hotel,hotel,black,white,,"La maison des 11 écluses, gîte singulier",,,,48.3073,-1.7948
+Hotel,hotel,black,white,,"Le logis du Jerzual
+",,,,48.4572,-2.0402
+Hotel,hotel,black,white,,Hôtel les Alizés,,,,48.6307,-2.0628
