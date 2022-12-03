@@ -1,5 +1,4 @@
 <script>
-    import Counter from './lib/Counter.svelte'
     import Map from './lib/Map.svelte'
     import PoiList from './lib/PoiList.svelte'
     import { onMount } from "svelte";
