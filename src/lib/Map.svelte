@@ -5,11 +5,16 @@
     import 'leaflet/dist/leaflet.css';
 
     let map;
+    let mapMarkers = [];
     export let poi;
     export let coord;
 
     onMount(async () => {
-        map = L.map("map", { zoomControl: false }).setView([48.367198, -1.842957], 9);
+        map = L.map("map",
+            {
+                zoomControl: false, zoomSnap: 0.5
+            }
+        ).setView([48.367198, -1.842957], 9);
         L.tileLayer("https://a.tile.openstreetmap.org/{z}/{x}/{y}.png ", {
             maxZoom: 18
         }).addTo(map);
@@ -24,14 +29,21 @@
         };
     })
 
-    $: poi = poi.map((pt => {
-            L.marker([pt.Latitude, pt.Longitude], { 
-                icon: L.icon({
-                    iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
-                    iconSize: [25, 40],
+    $: if (poi) {
+        if (mapMarkers.length) mapMarkers.forEach((m) => m.remove());
+        poi.forEach((pt => {
+            if (pt.selected) {
+                let marker = L.marker([pt.Latitude, pt.Longitude], { 
+                    icon: L.icon({
+                        iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
+                        iconSize: [25, 40],
+                    })
                 })
-            }).addTo(map)
+                marker.addTo(map)
+                mapMarkers = [...mapMarkers, marker]
+            }
         }))
+    }
 
 </script>
 

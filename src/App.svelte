@@ -1,5 +1,4 @@
 <script>
-    import svelteLogo from './assets/svelte.svg'
     import Counter from './lib/Counter.svelte'
     import Map from './lib/Map.svelte'
     import PoiList from './lib/PoiList.svelte'
@@ -10,6 +9,8 @@
 
     let coord;
     let poi = [];
+
+    $: console.log('app', {poi})
 
     onMount(async () => {
         await fetchPoi()
@@ -30,14 +31,13 @@
         const spreadSheet = await fetch(apiUrl + spreadsheetId + '?key=' + googleApiKey).then(async r => (await r.json()))
 
         const keys = sheet?.values.shift()
-        poi = sheet?.values.reduce((a, p, i) => ([
-            ...a,
+        poi = sheet?.values.map((p, i) => (
             Object.fromEntries(
                 p.map(
                     (e,i) => ([ keys[i], e ])
                 )
             )
-        ]), []) ?? []
+        )) ?? []
     }
 
 </script>
@@ -48,7 +48,7 @@
         bind:poi
     />
     <div id='bot'>
-        <PoiList {poi}/>
+        <PoiList bind:poi/>
         <div id='coord'>
             {coord}
         </div>
