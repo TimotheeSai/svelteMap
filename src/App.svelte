@@ -47,10 +47,10 @@
         bind:poi
     />
     <div id='bot'>
-        <PoiList bind:poi/>
         <div id='coord'>
-            {coord}
+            {coord ?? 'click map'}
         </div>
+        <PoiList bind:poi/>
     </div>
 </main>
 
@@ -61,8 +61,7 @@
         flex-direction: column
     }
     #bot {
-        max-height: 20%;
-        overflow: scroll;
+        max-height: 40%;
     }
 
 </style>
