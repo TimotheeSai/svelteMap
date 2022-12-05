@@ -16,3 +16,4 @@ See on vercel at: https://vercel.com/timotheesai/rando-map
 
 - Svelte
 - TailwindCSS
+- typescript

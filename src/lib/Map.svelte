@@ -1,13 +1,18 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
-    import pathData from '../assets/path.json'
-    import L from 'leaflet';
     import 'leaflet/dist/leaflet.css';
+    import L from 'leaflet';
 
-    let map;
+    import type { Map, LeafletMouseEvent, LatLng } from 'leaflet';
+    import type * as geojson from 'geojson';
+    import type { PointOfInterest } from '../types'
+
+    import pathData from '../assets/path.json'
+
+    let map: Map;
     let mapMarkers = [];
-    export let poi;
-    export let coord;
+    export let poi: PointOfInterest[];
+    export let coord: LatLng;
 
     onMount(async () => {
         map = L.map("map",
@@ -18,9 +23,9 @@
         L.tileLayer("https://a.tile.openstreetmap.org/{z}/{x}/{y}.png ", {
             maxZoom: 18
         }).addTo(map);
-        L.geoJSON(pathData).addTo(map);
+        L.geoJSON(pathData as geojson.GeoJsonObject).addTo(map);
     
-        map.on('click', (e) => {
+        map.on('click', (e: LeafletMouseEvent) => {
             coord = e.latlng
         });
 
@@ -31,9 +36,9 @@
 
     $: if (poi) {
         if (mapMarkers.length) mapMarkers.forEach((m) => m.remove());
-        poi.forEach((pt => {
+        poi.forEach((( pt: { selected: boolean, Latitude: string, Longitude: string } ) => {
             if (pt.selected) {
-                let marker = L.marker([pt.Latitude, pt.Longitude], { 
+                let marker = L.marker([parseFloat(pt.Latitude), parseFloat(pt.Longitude)], { 
                     icon: L.icon({
                         iconUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-icon-2x.png',
                         iconSize: [25, 40],

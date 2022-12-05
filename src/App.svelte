@@ -1,12 +1,14 @@
-<script>
+<script lang='ts'>
+    import { onMount } from "svelte";
+
+    import type { LatLng } from 'leaflet';
+
     import Map from './lib/Map.svelte'
     import PoiList from './lib/PoiList.svelte'
-    import { onMount } from "svelte";
     // import { poi } from './store.js'
 
-    import pathData from './assets/path.json'
 
-    let coord;
+    let coord: LatLng;
     let poi = [];
 
     $: console.log('app', {poi})
@@ -25,15 +27,14 @@
             ? googleDocURL.split('/d/')[1].split('/')[0]
             : googleDocURL
 
+        // const spreadSheet = await fetch(apiUrl + spreadsheetId + '?key=' + googleApiKey).then(async r => (await r.json()))
         const sheet = await fetch(apiUrl + spreadsheetId + '/values/Points?key=' + googleApiKey).then(async r => (await r.json()))
-        
-        const spreadSheet = await fetch(apiUrl + spreadsheetId + '?key=' + googleApiKey).then(async r => (await r.json()))
 
         const keys = sheet?.values.shift()
-        poi = sheet?.values.map((p, i) => (
+        poi = sheet?.values.map((p: string[]) => (
             Object.fromEntries(
                 p.map(
-                    (e,i) => ([ keys[i], e ])
+                    (elt,idx) => ([ keys[idx], elt ])
                 )
             )
         )) ?? []

@@ -1,12 +1,12 @@
-<script>
-    import { onMount } from "svelte";
-
+<script lang='ts'>
     import Icon from 'svelte-awesome';
     import mapMarker from 'svelte-awesome/icons/mapMarker';
     import map from 'svelte-awesome/icons/map';
 
-    export let poi;
-    let selectedPoint;
+    import type { PointOfInterest } from '../types'
+
+    export let poi: PointOfInterest[];
+    let selectedPoint: PointOfInterest;
     let columnsKeys = [
         'Group',
         // 'Marker Icon',
@@ -23,20 +23,20 @@
 
     $: poi = poi.map(pt => (!pt?.selected ? {...pt, selected:false} : pt))
 
-    const poiClick = (e) => {
-        const pointIndex = e?.target.dataset.rowId
+    const poiClick = (e: MouseEvent) => {
+        const pointIndex = (e?.target as HTMLElement)?.dataset.rowId
 
         selectedPoint = poi[pointIndex]
         selectedPoint.selected = !selectedPoint?.selected
-        poi = poi.map((pt, index) => (index === pointIndex ? selectedPoint : pt))
+        poi = poi.map((pt, index) => (`${index}` === pointIndex ? selectedPoint : pt))
     };
 
 </script>
 
-<div class='bot__poi-list__container'>
+<div class='h-full overflow-scroll'>
     <table>
         <thead>
-            <tr class='bot_poi-list_header border'>
+            <tr class='border font-bold'>
                 <th style='text-align:center;'>
                     <Icon data={map} />
                 </th>
@@ -80,27 +80,4 @@
         text-align: left;
     }
 
-    .bot__poi-list__container {
-        height:100%;
-        overflow: scroll;
-    }
-
-    ul.bot_poi-list {
-        list-style: none;
-        padding: 1rem;
-        margin: 0;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    .bot_poi-list_header {
-        font-weight: 700;
-    }
-
-    .bot_poi-list > li {
-        display:grid;
-        grid-template-columns: repeat(5, 1fr);
-        /* display: flex; */
-        /* justify-content: space-around; */
-    }
 </style>
