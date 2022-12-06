@@ -10,7 +10,7 @@
     // import { poi } from './store.js'
 
 
-    let coord: LatLng;
+    let coord: {user: LatLng, click: LatLng};
     let poi: PointOfInterest[] = [];
 
     $: console.log('app', {poi})
@@ -61,8 +61,17 @@
         bind:poi
     />
     <div id='bot'>
-        <div id='coord'>
-            {coord ?? 'click map'}
+        <div class='flex flex-col items-center'>
+            {#if coord?.user}
+                <div class='bg-blue-100  max-w-lg p-4 m-2 border-blue-100 rounded text-blue-500 font-bold'>
+                    {`You're position is ${coord?.user?.lat}, ${coord?.user?.lng}`}
+                </div>
+            {/if}
+            {#if coord?.click}
+                <div class='bg-green-100 max-w-lg p-4 m-2 border-green-100 rounded text-green-500 font-bold'>
+                    {`You clicked on ${coord?.click?.lat}, ${coord?.click?.lng}`}
+                </div>
+            {/if}
         </div>
         <PoiList bind:poi/>
     </div>

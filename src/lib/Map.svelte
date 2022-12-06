@@ -1,9 +1,13 @@
+<svelte:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</svelte:head>
+
 <script lang="ts">
     import { onMount } from "svelte";
     import "leaflet/dist/leaflet.css";
     import L from "leaflet";
 
-    import type { Map, LeafletMouseEvent, LatLng } from "leaflet";
+    import type { Map, LeafletMouseEvent, LatLng, LocationEvent } from "leaflet";
     import type * as geojson from "geojson";
     import type { PointOfInterest } from "../types";
 
@@ -12,7 +16,7 @@
     let map: Map;
     let mapMarkers = [];
     export let poi: PointOfInterest[];
-    export let coord: LatLng;
+    export let coord: {user: LatLng, click: LatLng};
 
     onMount(async () => {
         map = L.map("map", {
@@ -25,9 +29,11 @@
         L.geoJSON(pathData as geojson.GeoJsonObject).addTo(map);
 
         map.on("click", (e: LeafletMouseEvent) => {
-            coord = e.latlng;
+            coord = {...coord, click: e.latlng}
         });
 
+        map.locate({setView: false, maxZoom: 9});
+        map.on('locationfound', onLocationFound);
         return () => {
             map.remove();
         };
@@ -61,6 +67,11 @@
             mapMarkers = [...mapMarkers, marker];
         });
     }
+
+    const onLocationFound = (e: LocationEvent) => {
+        coord = {...coord, user: e.latlng}
+    }
+
 </script>
 
 <div id="map" class='h-full w-full'/>
