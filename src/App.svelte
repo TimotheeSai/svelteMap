@@ -2,14 +2,16 @@
     import { onMount } from "svelte";
 
     import type { LatLng } from 'leaflet';
+    import type { PointOfInterest } from './types'
 
     import Map from './lib/Map.svelte'
+    import MarkerIcon from './lib/MarkerIcon.svelte'
     import PoiList from './lib/PoiList.svelte'
     // import { poi } from './store.js'
 
 
     let coord: LatLng;
-    let poi = [];
+    let poi: PointOfInterest[] = [];
 
     $: console.log('app', {poi})
 
@@ -40,9 +42,20 @@
         )) ?? []
     }
 
+    const filterCategory = (category: string) => {
+        poi = poi.map(e => ({...e, selected: e.Group === category }))
+    }
+
 </script>
 
 <main>
+    <div>
+        <div class='flex flex-row justify-center'>
+            {#each [... new Set(poi.map(e =>e.Group))] as  cat}
+                <MarkerIcon category={cat} on:message={(e) => {filterCategory(e?.detail?.category)}} />
+            {/each}
+        </div>
+    </div>
     <Map 
         bind:coord 
         bind:poi

@@ -36,7 +36,7 @@
 <div class='h-full overflow-scroll'>
     <table>
         <thead>
-            <tr class='border font-bold'>
+            <tr class='font-bold border '>
                 <th style='text-align:center;'>
                     <Icon data={map} />
                 </th>
@@ -68,16 +68,16 @@
 
 <style>
     table {
-        height: 100%;
+        @apply h-full;
         width: 53.75rem;
     }
 
-    tr:nth-child(even)  {
-        background-color: #f5f5f5;
+    tr:nth-child(even) {
+        @apply bg-gray-100;
     }
     
     td, th {
-        text-align: left;
+        @apply p-4 text-left;
     }
 
 </style>
